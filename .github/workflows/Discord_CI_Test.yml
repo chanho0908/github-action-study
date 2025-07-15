@@ -1,0 +1,54 @@
+name: CI Notification to Discord
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build
+        run: echo "빌드 중..."  # 실제 빌드 스크립트 대체
+
+      - name: Notify Discord on Success
+        if: success()
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d '{"username": "GitHub Actions", "content": ":white_check_mark: CI 성공!\n**Repo:** '${{ github.repository }}'\n**Branch:** '${{ github.ref_name }}'"}' \
+               ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+      - name: Notify Discord on Failure
+        if: failure()
+        uses: Ilshidur/action-discord@0.3.2
+        env: 
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_USERNAME: CI_CAT
+          DISCORD_AVATAR: https://github.com/user-attachments/assets/f4a333ae-c6e0-43ed-abe7-4e50a519a3be
+          DISCORD_EMBEDS: |
+                        [
+                          {
+                            "title": "빌드 실패했다냥 ❌",
+                            "color": 15158332,
+                            "description": "[#${{ github.event.pull_request.number }}] ${{ github.event.pull_request.title }}\n${{ github.event.pull_request.html_url }}",
+                            "fields": [
+                              {
+                                "name": "브랜치",
+                                "value": "${{ github.ref }}",
+                                "inline": true
+                              },
+                              {
+                                "name": "작성자",
+                                "value": "${{ github.event.pull_request.user.login }}",
+                                "inline": true
+                              }
+                            ]
+                          }
+                        ]

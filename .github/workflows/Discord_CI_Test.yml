@@ -23,7 +23,7 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           DISCORD_USERNAME: CI_CAT
-          DISCORD_AVATAR: https://github.com/user-attachments/assets/f4a333ae-c6e0-43ed-abe7-4e50a519a3be
+          DISCORD_AVATAR: https://github.com/user-attachments/assets/57ed4d06-a00f-4aa2-a7b1-76c84ec68cde
           DISCORD_EMBEDS: |
             [
               {
@@ -51,7 +51,7 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           DISCORD_USERNAME: CI_CAT
-          DISCORD_AVATAR: https://raw.githubusercontent.com/chanho0908/github-action-study/refs/heads/main/.github/workflows/79048d135c6f221734414407621c7a35f717ebe80995fbe3c2a030cd8b8c4e8b.webp
+          DISCORD_AVATAR: https://github.com/user-attachments/assets/57ed4d06-a00f-4aa2-a7b1-76c84ec68cde
           DISCORD_EMBEDS: |
             [
               {

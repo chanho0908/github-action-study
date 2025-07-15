@@ -17,13 +17,33 @@ jobs:
       - name: Build
         run: echo "빌드 중..."  # 실제 빌드 스크립트 대체
 
-      - name: Notify Discord on Success
-        if: success()
-        run: |
-          curl -H "Content-Type: application/json" \
-               -X POST \
-               -d '{"username": "GitHub Actions", "content": ":white_check_mark: CI 성공!\n**Repo:** '${{ github.repository }}'\n**Branch:** '${{ github.ref_name }}'"}' \
-               ${{ secrets.DISCORD_WEBHOOK_URL }}
+      -   name: Notify Success on Discord
+                if: ${{ success() }}
+                uses: Ilshidur/action-discord@0.3.2
+                env:
+                    DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_CI }}
+                    DISCORD_USERNAME: CI_CAT
+                    DISCORD_AVATAR: https://github.com/user-attachments/assets/f4a333ae-c6e0-43ed-abe7-4e50a519a3be
+                    DISCORD_EMBEDS: |
+                        [
+                          {
+                            "title": "CI 통과됐다냥 🎉",
+                            "color": 3066993,
+                            "description": "[#${{ github.event.pull_request.number }}] ${{ github.event.pull_request.title }}\n${{ github.event.pull_request.html_url }}",
+                            "fields": [
+                              {
+                                "name": "브랜치",
+                                "value": "${{ github.ref }}",
+                                "inline": true
+                              },
+                              {
+                                "name": "작성자",
+                                "value": "${{ github.event.pull_request.user.login }}",
+                                "inline": true
+                              }
+                            ]
+                          }
+                        ]
 
       - name: Notify Discord on Failure
         if: failure()

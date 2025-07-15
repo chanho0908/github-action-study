@@ -51,7 +51,7 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           DISCORD_USERNAME: CI_CAT
-          DISCORD_AVATAR: https://github.com/user-attachments/assets/f4a333ae-c6e0-43ed-abe7-4e50a519a3be
+          DISCORD_AVATAR: https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.alphawiki.org%2Fw%2F%25ED%2595%2598%25EB%2582%2598%25EC%25BD%2594%2520%25EB%2582%2598%25EB%2582%2598&psig=AOvVaw1kgv7isGC3tRHbyKaC6iS_&ust=1752672558335000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCNDv7Zv8vo4DFQAAAAAdAAAAABAE
           DISCORD_EMBEDS: |
             [
               {
